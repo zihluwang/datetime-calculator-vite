@@ -1,10 +1,20 @@
 {
-  "name": "datetime-calculator-vite",
-  "version": "0.0.0",
-  "private": true,
+  "name": "datetime-calculator",
+  "version": "1.0.0",
+  "description": "This is an app that being used to calculate time duration between 2 time points.",
+  "author": {
+    "name": "Zihlu Wang",
+    "email": "really@zihlu.wang"
+  },
+  "private": false,
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
+    "electron:build": "vue-tsc && vite build && electron-builder",
+    "electron:build:all": "vue-tsc && vite build && electron-builder -wml",
+    "electron:build:win": "vue-tsc && vite build && electron-builder -w",
+    "electron:build:linux": "vue-tsc && vite build && electron-builder -l",
+    "electron:build:mac": "vue-tsc && vite build && electron-builder -m",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
@@ -24,12 +34,17 @@
     "@vue/eslint-config-prettier": "^7.1.0",
     "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/tsconfig": "^0.4.0",
+    "electron": "^25.3.1",
+    "electron-builder": "^24.4.0",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
     "typescript": "~5.0.4",
     "vite": "^4.3.9",
+    "vite-plugin-electron": "^0.12.0",
+    "vite-plugin-electron-renderer": "^0.14.5",
     "vue-tsc": "^1.6.5"
-  }
+  },
+  "main": "dist-electron/main.js"
 }
