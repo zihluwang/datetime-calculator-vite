@@ -14,15 +14,15 @@
           class="input-break-time"
           v-model="breakHours"
           :min="0"
-          :max="timePeriod.get('hour')"
+          :max="Math.floor(timeDiff.asHours())"
         />
         时
-        <el-input-number class="input-break-time" v-model="breakMinutes" :min="0" :max="60" />
+        <el-input-number class="input-break-time" v-model="breakMinutes" :min="0" :max="59" />
         分
       </el-form-item>
 
       <el-form-item label="共娱乐">
-        {{ `${timePeriod.get("hour")} 时 ${timePeriod.get("minute")} 分` }}
+        {{ `${timePlayed.asHours().toFixed(2)} 时` }}
       </el-form-item>
     </el-form>
   </div>
@@ -38,7 +38,10 @@ const endAt = ref<Date>(initTime.value.toDate())
 const breakHours = ref(0)
 const breakMinutes = ref(0)
 
-const timePeriod = computed(() =>
+const timeDiff = computed(() => moment
+    .duration(moment(endAt.value).diff(moment(startAt.value))))
+
+const timePlayed = computed(() =>
   moment
     .duration(moment(endAt.value).diff(moment(startAt.value)))
     .subtract(breakHours.value, "hour")

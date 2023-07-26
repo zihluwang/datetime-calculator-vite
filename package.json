@@ -1,6 +1,6 @@
 {
   "name": "datetime-calculator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is an app that being used to calculate time duration between 2 time points.",
   "author": {
     "name": "Zihlu Wang",
@@ -46,5 +46,18 @@
     "vite-plugin-electron-renderer": "^0.14.5",
     "vue-tsc": "^1.6.5"
   },
-  "main": "dist-electron/main.js"
+  "main": "dist-electron/main.js",
+  "build": {
+    "productName": "日期时间计算器",
+    "appId": "wang.zihlu.datetime-calculator",
+    "mac": {
+      "icon": "./public/calculator.ico"
+    },
+    "win": {
+      "icon": "./public/calculator.ico"
+    },
+    "linux": {
+      "icon": "./public/calculator.ico"
+    }
+  }
 }
