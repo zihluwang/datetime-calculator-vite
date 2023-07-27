@@ -14,10 +14,15 @@
           class="input-break-time"
           v-model="breakHours"
           :min="0"
-          :max="Math.floor(timeDiff.asHours())"
+          :max="maxBreakHour"
         />
         时
-        <el-input-number class="input-break-time" v-model="breakMinutes" :min="0" :max="59" />
+        <el-input-number
+          class="input-break-time"
+          v-model="breakMinutes"
+          :min="0"
+          :max="maxBreakMinute"
+        />
         分
       </el-form-item>
 
@@ -30,16 +35,24 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue"
-import moment, { type Moment } from "moment"
+import moment from "moment"
 
-const initTime = ref<Moment>(moment({ hour: 0, minute: 0, second: 0 }))
-const startAt = ref<Date>(initTime.value.toDate())
-const endAt = ref<Date>(initTime.value.toDate())
+const initTime = moment({ hour: 0, minute: 0, second: 0 })
+const startAt = ref<Date>(initTime.toDate())
+const endAt = ref<Date>(initTime.toDate())
 const breakHours = ref(0)
 const breakMinutes = ref(0)
 
-const timeDiff = computed(() => moment
-    .duration(moment(endAt.value).diff(moment(startAt.value))))
+const timeDiff = computed(() => moment.duration(moment(endAt.value).diff(moment(startAt.value))))
+
+const maxBreakHour = computed(() => Math.floor(timeDiff.value.asHours()))
+const maxBreakMinute = computed(() => {
+  if (breakHours.value == maxBreakHour.value) {
+    return timeDiff.value.asMinutes() - breakHours.value * 60
+  } else {
+    return 59
+  }
+})
 
 const timePlayed = computed(() =>
   moment

@@ -1,6 +1,6 @@
 {
   "name": "datetime-calculator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is an app that being used to calculate time duration between 2 time points.",
   "author": {
     "name": "Zihlu Wang",
